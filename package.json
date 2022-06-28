@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "repository": "https://github.com/AkasakiTomohiro/RecipeSurvey.git",
+  "homepage": ".",
+  "main": "build/electron/main.js",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
@@ -12,7 +14,10 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "api:build": "aspida",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "postinstall": "electron-builder install-app-deps",
+    "electron:dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
+    "electron:build": "yarn build && tsc -p electron && electron-builder"
   },
   "dependencies": {
     "@aspida/axios": "^1.10.2",
@@ -29,6 +34,8 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-reload": "^2.0.0-alpha.1",
     "notistack": "^2.0.5",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -56,10 +63,26 @@
     "@storybook/testing-library": "^0.0.11",
     "@types/cypress-image-snapshot": "^3.1.6",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "concurrently": "^7.2.2",
+    "cross-env": "^7.0.3",
     "cypress": "^9.6.1",
     "cypress-image-snapshot": "^4.0.1",
+    "electron": "^19.0.6",
+    "electron-builder": "^23.1.0",
     "prop-types": "^15.8.1",
+    "wait-on": "^6.0.1",
     "webpack": "^5.72.1"
+  },
+  "author": "Artan",
+  "description": "...",
+  "build": {
+    "extends": null,
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "volta": {
     "extends": ".voltarc.json"

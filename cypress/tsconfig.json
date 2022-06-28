@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "*/*.ts",
+    "./SelectTestId.ts"
+  ],
+  "compilerOptions": {
+    "types": ["cypress", "node"],
+    "isolatedModules": false,
+    "noEmit": false
+  }
+}
